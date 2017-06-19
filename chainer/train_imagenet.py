@@ -119,7 +119,7 @@ def train_loop():
     data = np.ndarray((args.batchsize, 3, model.insize,
                        model.insize), dtype=np.float32)
     print('Input data shape:', data.shape)
-    data.fill(33333)
+    data =  np.random.uniform(-1, 1, data.shape).astype(data.dtype)
     total_forward = 0
     total_backward = 0
     niter = 13
@@ -152,7 +152,7 @@ def train_loop():
                 total_forward += time_
 
         out.zerograd()
-        out.grad.fill(3)
+        out.grad = np.random.uniform(-1, 1,out.grad.shape).astype(out.grad.dtype)
         model.cleargrads()
         if xp != np:
             xp.cuda.Stream(null=True)
